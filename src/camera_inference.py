@@ -10,7 +10,6 @@ def predict_from_camera(data_dir=r"D:\Python\BTLXLYA\data_split\train", model_pa
     global camera_active
     camera_active = True
 
-    # Kiểm tra và load các lớp
     try:
         classes = get_class_names(data_dir)
     except Exception as e:
@@ -25,13 +24,11 @@ def predict_from_camera(data_dir=r"D:\Python\BTLXLYA\data_split\train", model_pa
         print(f"Error loading model: {e}")
         return
 
-    # Khởi động camera
     cap = cv2.VideoCapture(0)
     if not cap.isOpened():
         print("Error: Cannot access camera.")
         return
 
-    # Transform
     transform = transforms.Compose([
         lambda img: transforms.functional.resize(img, (300, 300)),
         transforms.ToTensor(),
